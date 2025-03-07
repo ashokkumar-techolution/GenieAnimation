@@ -16,6 +16,11 @@ body {
   margin-left: 300px;
 }
 
+:root {
+  --button-x: 50px; /* Approximate X position of the chat button */
+  --button-y: 90vh; /* Approximate Y position of the chat button */
+}
+
 .sidenav {
   height: 100vh;
   width: 300px;
@@ -25,8 +30,8 @@ body {
   background-color: white;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   transform: scale(0);
-  transform-origin: bottom left;
-  transition: transform 1.25s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  transform-origin: var(--button-x) var(--button-y); /* Expand from the chat button */
+  transition: transform 1s cubic-bezier(0.68, -0.55, 0.27, 1.55);
   pointer-events: none;
 }
 
@@ -34,6 +39,22 @@ body {
   transform: scale(1);
   pointer-events: auto;
 }
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  :root {
+    --button-x: 40px; /* Slightly adjust for smaller screens */
+    --button-y: 92vh;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --button-x: 35px; /* Adjust for very small screens */
+    --button-y: 94vh;
+  }
+}
+
 
 .sidenav-header {
   background-color: #52b7c4f3;
@@ -133,7 +154,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.3);
+  /* background-color: rgba(0, 0, 0, 0.3); */
   z-index: 0;
   opacity: 0;
   visibility: hidden;
