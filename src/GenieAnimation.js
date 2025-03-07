@@ -1,62 +1,86 @@
-import React, { useState, useEffect } from "react";
-import "./style.css";
+import React, { useState } from "react";
+import "./style.css"; // Importing the CSS file
 
-const GenieAnimation = () => {
-  const [isSidebarVisible, setIsSidebarVisible] = useState(false);
-  const [isAnimating, setIsAnimating] = useState(false);
-  const [isAnimationComplete, setIsAnimationComplete] = useState(false);
+const GenieSidebar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isBouncing, setIsBouncing] = useState(false);
 
-  const toggleSidebar = () => {
-    if (isSidebarVisible) {
-      setIsAnimating(true);
-      setIsAnimationComplete(false); // Reset
-      setTimeout(() => {
-        setIsSidebarVisible(false);
-        setIsAnimating(false);
-      }, 300);
-    } else {
-      setIsAnimating(true);
-      setTimeout(() => {
-        setIsSidebarVisible(true);
-        setIsAnimating(false);
-        setIsAnimationComplete(true); // Set when animation completes
-      }, 300);
-    }
+  const openSidebar = () => {
+    setIsOpen(true);
   };
 
+  const closeSidebar = () => {
+    setIsOpen(false);
+  };
+
+  const handleToggle = () => {
+    setIsBouncing(true); // Start bounce animation
+
+    setTimeout(() => {
+      setIsBouncing(false); // Remove bounce animation
+      setIsOpen(true); // Open sidebar after bounce
+    }, 300); // Match the bounce animation duration
+  };
   return (
-    <div className="genie-container">
-      {!isSidebarVisible && (
-        <button
-          className={`chat-button ${isAnimating ? "bounce-down" : ""}`}
-          onClick={toggleSidebar}
-        >
-          💬
-        </button>
-      )}
+    <div>
+      <button
+        className={`toggle-btn ${isBouncing ? "bouncing" : ""} ${
+          isOpen ? "hidden" : ""
+        }`}
+        onClick={handleToggle}
+      >
+        ☰
+      </button>
 
       <div
-        className={`genie-sidebar ${
-          isSidebarVisible ? "expanded" : "collapsed"
-        } ${isAnimating ? "animating" : ""} ${
-          isAnimationComplete ? "full-height" : ""
-        }`}
-      >
-        {isSidebarVisible && <button className="chat-icon">💬</button>}
-        <button className="toggle-btn" onClick={toggleSidebar}>
-          ☰
-        </button>
+        className={`backdrop ${isOpen ? "visible" : ""}`}
+        onClick={closeSidebar}
+      ></div>
+
+      <div className={`sidenav ${isOpen ? "open" : ""}`}>
+        <div className="sidenav-header">
+          <h2>Navigation</h2>
+          <button className="close-btn" onClick={closeSidebar}>
+            ✕
+          </button>
+        </div>
+        <div className="nav-links">
+          <a href="#" className="active">
+            <i>🏠</i> Home
+          </a>
+          <a href="#">
+            <i>👤</i> Profile
+          </a>
+          <a href="#">
+            <i>📊</i> Dashboard
+          </a>
+          <a href="#">
+            <i>📁</i> Projects
+          </a>
+          <a href="#">
+            <i>📝</i> Tasks
+          </a>
+          <a href="#">
+            <i>📅</i> Calendar
+          </a>
+          <a href="#">
+            <i>⚙️</i> Settings
+          </a>
+          <a href="#">
+            <i>📤</i> Logout
+          </a>
+        </div>
       </div>
 
-      <div
-        className={`right-side ${
-          isSidebarVisible ? "with-sidebar" : "full-width"
-        }`}
-      >
-        <div className="rectangle"></div>
+      <div className={`main-content ${isOpen ? "shifted" : ""}`}>
+        <h1>Genie Navigation Demo</h1>
+        <p>
+          Click the round button in the <strong>bottom left</strong> to toggle
+          the side navigation with a genie animation effect.
+        </p>
       </div>
     </div>
   );
 };
 
-export default GenieAnimation;
+export default GenieSidebar;

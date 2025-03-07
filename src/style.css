@@ -1,136 +1,164 @@
-/* Main container */
-.genie-container {
-  display: flex;
+body {
+  font-family: "Arial", sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
+  overflow-x: hidden;
+}
+
+.main-content {
+  margin-left: 0;
+  padding: 20px;
+  transition: margin-left 1.25s ease;
+}
+
+.main-content.shifted {
+  margin-left: 300px;
+}
+
+.sidenav {
   height: 100vh;
-  position: relative;
-}
-
-/* Sidebar - Initially Hidden */
-.genie-sidebar {
-  width: 250px;
-  background-color: #52b7c4;
+  width: 300px;
   position: fixed;
+  top: 0;
   left: 0;
-  bottom: 0; /* Starts from the bottom */
+  background-color: white;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  transform: scale(0);
+  transform-origin: bottom left;
+  transition: transform 1.25s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  pointer-events: none;
+}
+
+.sidenav.open {
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+.sidenav-header {
+  background-color: #52b7c4f3;
+  color: white;
+  padding: 20px;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 10px;
-  max-height: 0; /* Initially collapsed */
-  overflow: hidden;
-  transition: max-height 0.5s ease-in-out; /* Smooth expansion */
+  align-items: center;
+  justify-content: space-between;
 }
 
-/* Expand the Sidebar */
-.expanded {
-  max-height: 100vh; /* Expand to full height */
+.sidenav-header h2 {
+  margin: 0;
+  font-size: 20px;
 }
 
-/* After animation completes */
-.full-height {
-  height: 100%;
+.close-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  transition: transform 0.3s ease;
 }
 
-/* Initially Collapsed Button */
-.collapsed {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  transform: scale(0.8);
+.close-btn:hover {
+  transform: scale(1.2);
 }
 
-/* Chat Button */
-.chat-button {
+.nav-links {
+  padding: 15px;
+}
+
+.nav-links a {
+  display: block;
+  padding: 12px 8px;
+  text-decoration: none;
+  color: #333;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  transition: background-color 0.3s;
+}
+
+.nav-links a:hover {
+  background-color: #f2f2f2;
+}
+
+.nav-links a.active {
+  background-color: #e2f3f5;
+  color: #52b7c4;
+  font-weight: bold;
+}
+
+.nav-links a i {
+  margin-right: 10px;
+  width: 20px;
+  text-align: center;
+}
+
+.toggle-btn {
   position: fixed;
   bottom: 20px;
   left: 20px;
   width: 60px;
   height: 60px;
   background-color: #52b7c4;
+  color: white;
+  border: none;
   border-radius: 50%;
-  border: none;
-  color: white;
-  font-size: 2rem;
   cursor: pointer;
-  transition: all 1s ease-in-out;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1001;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  transition: opacity 0.2s ease;
 }
 
-/* Hide chat button when sidebar is visible */
-.chat-button.hidden {
-  display: none;
+.chatButtonAnimation {
+  animation: bounceDownAnimation 1s;
 }
 
-/* Toggle Button */
-.toggle-btn {
-  background: none;
-  border: none;
-  font-size: 2rem;
-  color: white;
-  cursor: pointer;
-  margin-top: 10px;
+.toggle-btn:hover {
+  background-color: #3da6b4;
 }
 
-/* Right Side Content */
-.right-side {
-  transition: all 0.6s ease-in-out;
+.toggle-btn.hidden {
+  opacity: 0;
+  pointer-events: none;
 }
 
-.with-sidebar {
-  margin-left: 250px;
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0s 0.3s;
 }
 
-.full-width {
-  margin-left: 0;
+.backdrop.visible {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s ease, visibility 0s;
 }
 
-.rectangle {
-  width: 100%;
-  height: 100%;
-  background-color: #ccc;
-  border: 1px solid #aaa;
-}
-
-/* Animations */
-@keyframes bounceUp {
-  0% {
-    transform: translateY(0);
-  }
-  40% {
-    transform: translateY(-10px);
-  }
-  100% {
-    transform: translateY(0);
-  }
+/* Bounce effect for the toggle button */
+.toggle-btn.bouncing {
+  animation: bounceDown 0.3s ease;
 }
 
 @keyframes bounceDown {
   0% {
     transform: translateY(0);
   }
-  40% {
-    transform: translateY(10px);
+  50% {
+    transform: translateY(30px);
   }
   100% {
     transform: translateY(0);
   }
-}
-
-@keyframes sideBarAnimation {
-  0% {
-    max-height: 0;
-  }
-  100% {
-    max-height: 100vh;
-  }
-}
-
-.animating {
-  animation: bounceUp 0.9s ease-in-out;
-}
-
-.bounce-down {
-  animation: bounceDown 0.9s ease-in-out;
 }
