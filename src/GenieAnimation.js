@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import "./style.css"; // Importing the CSS file
+import chatButton from "./chatButton.svg";
+import closeIcon from "./close_fullscreen.svg";
+import topIcon from "./topIcon.svg";
 
 const GenieSidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isBouncing, setIsBouncing] = useState(false);
-
-  const openSidebar = () => {
-    setIsOpen(true);
-  };
 
   const closeSidebar = () => {
     setIsOpen(false);
@@ -29,7 +28,7 @@ const GenieSidebar = () => {
         }`}
         onClick={handleToggle}
       >
-        ☰
+        <img src={chatButton} alt="Chat" />
       </button>
 
       <div
@@ -39,9 +38,9 @@ const GenieSidebar = () => {
 
       <div className={`sidenav ${isOpen ? "open" : ""}`}>
         <div className="sidenav-header">
-          <h2>Navigation</h2>
+          <img src={topIcon} alt="RLEF" />
           <button className="close-btn" onClick={closeSidebar}>
-            ✕
+            <img src={closeIcon} alt="Close" />
           </button>
         </div>
         <div className="nav-links">

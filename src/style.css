@@ -55,9 +55,8 @@ body {
   }
 }
 
-
 .sidenav-header {
-  background-color: #52b7c4f3;
+  /* background-color: #52b7c4f3; */
   color: white;
   padding: 20px;
   display: flex;
@@ -119,12 +118,12 @@ body {
   position: fixed;
   bottom: 20px;
   left: 20px;
-  width: 60px;
-  height: 60px;
-  background-color: #52b7c4;
+  width: 50px;
+  height: 50px;
+  /* background-color: #52b7c4; */
   color: white;
   border: none;
-  border-radius: 50%;
+  border-radius: 20%;
   cursor: pointer;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
   z-index: 1001;
@@ -137,10 +136,6 @@ body {
 
 .chatButtonAnimation {
   animation: bounceDownAnimation 1s;
-}
-
-.toggle-btn:hover {
-  background-color: #3da6b4;
 }
 
 .toggle-btn.hidden {
