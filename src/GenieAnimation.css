@@ -1,0 +1,72 @@
+:root {
+  --sidebar-width: 300px;
+  --btn-bg-color: #52b7c4;
+  --btn-hover-bg-color: #3da6b4;
+  --animation-duration: 0.8s;
+
+  /* Default values for chat button position */
+  --button-x: 50px;
+  --button-y: 90vh;
+}
+
+/* Sidebar Expansion & Collapse */
+.sidenav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--sidebar-width);
+  height: 100vh;
+  background: white;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+
+  /* Expand & collapse from chat button */
+  transform: scale(0);
+  transform-origin: var(--button-x) var(--button-y);
+  transition: transform var(--animation-duration)
+    cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  pointer-events: none;
+}
+
+.sidenav.open {
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+/* Chat Button */
+.toggle-btn {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 60px;
+  height: 60px;
+  background-color: var(--btn-bg-color);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  transition: opacity 0.3s ease;
+}
+
+/* Hide Button When Sidebar Opens */
+.toggle-btn.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Bounce effect for the chat button */
+@keyframes bounceDown {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(20px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* Apply bounce animation */
+.toggle-btn.bouncing {
+  animation: bounceDown 0.3s ease;
+}
