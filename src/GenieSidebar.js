@@ -1,33 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import chatButton from "./chatButton.svg";
 import closeIcon from "./close_fullscreen.svg";
 import topIcon from "./topIcon.svg";
+import "./GenieAnimation.css"; // Ensure styles are properly imported
 
 const GenieSidebar = ({ setIsSidebarOpen }) => {
   const [isOpen, setIsOpen] = useState(false);
-
-  useEffect(() => {
-    const updateButtonPosition = () => {
-      const button = document.querySelector(".toggle-btn");
-      if (button) {
-        const rect = button.getBoundingClientRect();
-        document.documentElement.style.setProperty(
-          "--button-x",
-          `${rect.left + rect.width / 2}px`
-        );
-        document.documentElement.style.setProperty(
-          "--button-y",
-          `${rect.top + rect.height / 2}px`
-        );
-      }
-    };
-
-    if (isOpen) {
-      updateButtonPosition();
-    } else {
-      setTimeout(updateButtonPosition, 100); // Ensure transition updates when closing
-    }
-  }, [isOpen]);
 
   const handleToggle = () => {
     setIsOpen(true);

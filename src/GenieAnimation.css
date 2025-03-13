@@ -1,35 +1,6 @@
 :root {
-  --sidebar-width: 300px;
-  --btn-bg-color: #52b7c4;
-  --btn-hover-bg-color: #3da6b4;
-  --animation-duration: 0.8s;
-
-  /* Default values for chat button position */
-  --button-x: 50px;
-  --button-y: 90vh;
-}
-
-/* Sidebar Expansion & Collapse */
-.sidenav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: var(--sidebar-width);
-  height: 100vh;
-  background: white;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-
-  /* Expand & collapse from chat button */
-  transform: scale(0);
-  transform-origin: var(--button-x) var(--button-y);
-  transition: transform var(--animation-duration)
-    cubic-bezier(0.68, -0.55, 0.27, 1.55);
-  pointer-events: none;
-}
-
-.sidenav.open {
-  transform: scale(1);
-  pointer-events: auto;
+  --button-x: 50px; /* Default chat button X position */
+  --button-y: 90vh; /* Default chat button Y position */
 }
 
 /* Chat Button */
@@ -39,21 +10,40 @@
   left: 20px;
   width: 60px;
   height: 60px;
-  background-color: var(--btn-bg-color);
+  background-color: #52b7c4;
+  color: white;
   border: none;
   border-radius: 50%;
   cursor: pointer;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-  transition: opacity 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  transition: opacity 0.9s ease;
 }
 
-/* Hide Button When Sidebar Opens */
-.toggle-btn.hidden {
-  opacity: 0;
+/* Sidebar */
+.sidenav {
+  height: 100vh;
+  width: 300px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: white;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  transform: scale(0);
+  transform-origin: var(--button-x) var(--button-y);
+  transition: transform 1s cubic-bezier(0.68, -0.55, 0.27, 1.55);
   pointer-events: none;
 }
 
-/* Bounce effect for the chat button */
+.sidenav.open {
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+/* Bounce effect for the toggle button */
 @keyframes bounceDown {
   0% {
     transform: translateY(0);
@@ -66,7 +56,118 @@
   }
 }
 
-/* Apply bounce animation */
 .toggle-btn.bouncing {
-  animation: bounceDown 0.3s ease;
+  animation: bounceDown 0.9s ease;
 }
+
+.main-content {
+  transition: margin-left 1.25s ease;
+}
+
+.main-content.shifted {
+  margin-left: 300px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  :root {
+    --button-x: 40px; /* Slightly adjust for smaller screens */
+    --button-y: 92vh;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --button-x: 35px; /* Adjust for very small screens */
+    --button-y: 94vh;
+  }
+}
+
+.sidenav-header {
+  /* background-color: #52b7c4f3; */
+  color: white;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sidenav-header h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  transition: transform 0.3s ease;
+}
+
+.close-btn:hover {
+  transform: scale(1.2);
+}
+
+.nav-links {
+  padding: 15px;
+}
+
+.nav-links a {
+  display: block;
+  padding: 12px 8px;
+  text-decoration: none;
+  color: #333;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  transition: background-color 0.3s;
+}
+
+.nav-links a:hover {
+  background-color: #f2f2f2;
+}
+
+.nav-links a.active {
+  background-color: #e2f3f5;
+  color: #52b7c4;
+  font-weight: bold;
+}
+
+.nav-links a i {
+  margin-right: 10px;
+  width: 20px;
+  text-align: center;
+}
+
+.toggle-btn {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 50px;
+  height: 50px;
+  /* background-color: #52b7c4; */
+  color: white;
+  border: none;
+  border-radius: 20%;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1001;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  transition: opacity 0.2s ease;
+}
+
+
+.toggle-btn.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+
+
+

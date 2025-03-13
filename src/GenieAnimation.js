@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./style.css"; // Importing the CSS file
+// import "./style.css"; // Importing the CSS file
 import chatButton from "./chatButton.svg";
 import closeIcon from "./close_fullscreen.svg";
 import topIcon from "./topIcon.svg";
